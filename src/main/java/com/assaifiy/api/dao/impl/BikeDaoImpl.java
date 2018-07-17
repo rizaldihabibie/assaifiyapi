@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Repository;
 
 import com.assaifiy.api.dao.BikeDao;
 import com.assaifiy.api.model.Bike;
+import com.assaifiy.api.model.OthersInfo;
+import com.assaifiy.api.model.Picture;
 import com.assaifiy.api.util.HibernateUtil;
 
 @Repository("bikeDao")
@@ -34,9 +37,24 @@ public class BikeDaoImpl implements BikeDao {
 			session.beginTransaction();
 			LOGGER.warn("Saving new bike : "+bike.getBrand()+"-"+bike.getType()+"-"+bike.getPlateNumber());
 			session.save(bike);
+			if(bike.getId()>0){
+				if(bike.getListOthersInfo().size()>0){
+					for(OthersInfo info : bike.getListOthersInfo()){
+						info.setBike(bike);
+						session.save(info);
+					}
+				}
+				if(bike.getListPicture().size()>0){
+					for(Picture pic : bike.getListPicture()){
+						pic.setBike(bike);
+						session.save(pic);
+					}
+				}
+			}
 			session.getTransaction().commit();		
 			return true;
 		}catch(HibernateException e){
+			session.getTransaction().rollback();
 			LOGGER.error(e.getMessage());		
 			return false;
 		}
@@ -74,6 +92,21 @@ public class BikeDaoImpl implements BikeDao {
 			query.select(root);
 			Query<Bike> q = session.createQuery(query);
 			listBike =q.getResultList();
+			if(listBike.size()>0){
+				for(Bike bike : listBike){
+					if(bike.getListOthersInfo().size()>0){
+						for(OthersInfo othersInfo : bike.getListOthersInfo()){
+							Hibernate.initialize(othersInfo);
+						}
+					}
+					if(bike.getListPicture().size()>0){
+						for(Picture pic : bike.getListPicture()){
+							Hibernate.initialize(pic);
+						}
+					}
+					
+				}
+			}
 			return listBike;
 		}catch(HibernateException e){
 			e.printStackTrace();
@@ -102,6 +135,21 @@ public class BikeDaoImpl implements BikeDao {
 			query.select(root).where(builder.equal(root.get("subCategory").get("id"), subCategoryCode));
 			Query<Bike> q = session.createQuery(query);
 			listBike =q.getResultList();
+			if(listBike.size()>0){
+				for(Bike bike : listBike){
+					if(bike.getListOthersInfo().size()>0){
+						for(OthersInfo othersInfo : bike.getListOthersInfo()){
+							Hibernate.initialize(othersInfo);
+						}
+					}
+					if(bike.getListPicture().size()>0){
+						for(Picture pic : bike.getListPicture()){
+							Hibernate.initialize(pic);
+						}
+					}
+					
+				}
+			}
 			return listBike;
 		}catch(HibernateException e){
 			LOGGER.error(e.getMessage());
@@ -129,6 +177,21 @@ public class BikeDaoImpl implements BikeDao {
 			query.select(root).where(builder.equal(root.get("subCategory").get("category").get("id"), categoryCode));
 			Query<Bike> q = session.createQuery(query);
 			listBike =q.getResultList();
+			if(listBike.size()>0){
+				for(Bike bike : listBike){
+					if(bike.getListOthersInfo().size()>0){
+						for(OthersInfo othersInfo : bike.getListOthersInfo()){
+							Hibernate.initialize(othersInfo);
+						}
+					}
+					if(bike.getListPicture().size()>0){
+						for(Picture pic : bike.getListPicture()){
+							Hibernate.initialize(pic);
+						}
+					}
+					
+				}
+			}
 			return listBike;
 		}catch(HibernateException e){
 			LOGGER.error(e.getMessage());
@@ -156,6 +219,16 @@ public class BikeDaoImpl implements BikeDao {
 			query.select(root).where(builder.equal(root.get("bikeCode"), bikeCode));
 			Query<Bike> q = session.createQuery(query);
 			bike =q.getSingleResult();
+			if(bike.getListOthersInfo().size()>0){
+				for(OthersInfo othersInfo : bike.getListOthersInfo()){
+					Hibernate.initialize(othersInfo);
+				}
+			}
+			if(bike.getListPicture().size()>0){
+				for(Picture pic : bike.getListPicture()){
+					Hibernate.initialize(pic);
+				}
+			}
 			return bike;
 		}catch(HibernateException e){
 			e.printStackTrace();

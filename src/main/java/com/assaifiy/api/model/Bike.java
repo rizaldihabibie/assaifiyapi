@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 public class Bike {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="motor_id")
 	private int id;
 	
@@ -77,7 +80,7 @@ public class Bike {
 	private List<OthersInfo> listOthersInfo;
 	
 	@OneToMany(mappedBy="bike")
-	private List<Picture> picture;
+	private List<Picture> listPicture;
 
 	public int getId() {
 		return id;
@@ -221,6 +224,22 @@ public class Bike {
 
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
+	}
+
+	public List<OthersInfo> getListOthersInfo() {
+		return listOthersInfo;
+	}
+
+	public void setListOthersInfo(List<OthersInfo> listOthersInfo) {
+		this.listOthersInfo = listOthersInfo;
+	}
+
+	public List<Picture> getListPicture() {
+		return listPicture;
+	}
+
+	public void setListPicture(List<Picture> listPicture) {
+		this.listPicture = listPicture;
 	}
 	
 	

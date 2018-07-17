@@ -69,7 +69,7 @@ public class OthersInfoDaoImpl implements OthersInfoDao{
 			LOGGER.warn("Retrieving Data");
 			CriteriaQuery<OthersInfo> query = builder.createQuery(OthersInfo.class);
 			Root<OthersInfo> root = query.from(OthersInfo.class);
-			query.select(root);
+			query.select(root).where(builder.equal(root.get("bike").get("id"), bikeId));
 			Query<OthersInfo> q = session.createQuery(query);
 			listOthersInfo =q.getResultList();
 			return listOthersInfo;

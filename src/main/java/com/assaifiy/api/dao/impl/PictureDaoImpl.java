@@ -69,7 +69,7 @@ public class PictureDaoImpl implements PictureDao {
 			LOGGER.warn("Retrieving Data");
 			CriteriaQuery<Picture> query = builder.createQuery(Picture.class);
 			Root<Picture> root = query.from(Picture.class);
-			query.select(root);
+			query.select(root).where(builder.equal(root.get("bike").get("id"), bikeId));
 			Query<Picture> q = session.createQuery(query);
 			listPicture =q.getResultList();
 			return listPicture;
