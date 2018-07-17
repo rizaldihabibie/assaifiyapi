@@ -17,7 +17,7 @@ public class AssaifiyApiController {
 	@Autowired
 	private AssaifiyService assaifiyService;
 
-	@RequestMapping(value="${api.version}/v1/categories", method = RequestMethod.POST)
+	@RequestMapping(value="${api.version}/categories", method = RequestMethod.POST)
 	public @ResponseBody CategoryResponse Categories(@RequestHeader("authorization") String authString){
 		CategoryResponse categoryResponse = new CategoryResponse();
 		if(authString != null){
