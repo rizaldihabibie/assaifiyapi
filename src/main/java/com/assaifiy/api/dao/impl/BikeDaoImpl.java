@@ -94,6 +94,8 @@ public class BikeDaoImpl implements BikeDao {
 			listBike =q.getResultList();
 			if(listBike.size()>0){
 				for(Bike bike : listBike){
+					Hibernate.initialize(bike.getSubCategory());
+					Hibernate.initialize(bike.getSubCategory().getCategory());
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -137,6 +139,8 @@ public class BikeDaoImpl implements BikeDao {
 			listBike =q.getResultList();
 			if(listBike.size()>0){
 				for(Bike bike : listBike){
+					Hibernate.initialize(bike.getSubCategory());
+					Hibernate.initialize(bike.getSubCategory().getCategory());
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -179,6 +183,8 @@ public class BikeDaoImpl implements BikeDao {
 			listBike =q.getResultList();
 			if(listBike.size()>0){
 				for(Bike bike : listBike){
+					Hibernate.initialize(bike.getSubCategory());
+					Hibernate.initialize(bike.getSubCategory().getCategory());
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -219,6 +225,8 @@ public class BikeDaoImpl implements BikeDao {
 			query.select(root).where(builder.equal(root.get("bikeCode"), bikeCode));
 			Query<Bike> q = session.createQuery(query);
 			bike =q.getSingleResult();
+			Hibernate.initialize(bike.getSubCategory());
+			Hibernate.initialize(bike.getSubCategory().getCategory());
 			if(bike.getListOthersInfo().size()>0){
 				for(OthersInfo othersInfo : bike.getListOthersInfo()){
 					Hibernate.initialize(othersInfo);

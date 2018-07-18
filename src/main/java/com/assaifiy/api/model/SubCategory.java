@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="sub_category")
 public class SubCategory {
@@ -35,6 +37,7 @@ public class SubCategory {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Category category;
 
 	public int getId() {

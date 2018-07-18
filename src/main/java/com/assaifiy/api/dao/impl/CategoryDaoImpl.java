@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -138,6 +139,11 @@ public class CategoryDaoImpl implements CategoryDao {
 			query.select(root).where(builder.equal(root.get("category").get("id"), categoryCode));
 			Query<SubCategory> q = session.createQuery(query);
 			listSubCategory =q.getResultList();
+			if(listSubCategory.size()>0){
+				for(SubCategory sub : listSubCategory){
+					Hibernate.initialize(sub.getCategory());
+				}
+			}
 			return listSubCategory;
 		}catch(HibernateException e){
 			LOGGER.error(e.getMessage());

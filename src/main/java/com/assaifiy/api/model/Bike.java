@@ -1,5 +1,6 @@
 package com.assaifiy.api.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="motorcycle")
-public class Bike {
+public class Bike implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2431288722469738433L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="motor_id")
@@ -74,12 +82,15 @@ public class Bike {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="subcategory_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private SubCategory subCategory;
 	
 	@OneToMany(mappedBy="bike")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<OthersInfo> listOthersInfo;
 	
 	@OneToMany(mappedBy="bike")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Picture> listPicture;
 
 	public int getId() {

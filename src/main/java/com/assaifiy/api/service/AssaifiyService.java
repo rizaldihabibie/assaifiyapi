@@ -45,4 +45,6 @@ public interface AssaifiyService {
 	public boolean save(SubCategory subCategory);
 	public boolean update(SubCategory subCategory);
 	public SubCategory findSubCategoryByCode(String subCategoryCode);
+	public List<SubCategory> listSubCategory();
+	
 }

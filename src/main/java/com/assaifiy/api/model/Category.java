@@ -1,5 +1,6 @@
 package com.assaifiy.api.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="category")
-public class Category {
+public class Category implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2765288464615191170L;
 
 	@Id
 	@Column(name="category_id")

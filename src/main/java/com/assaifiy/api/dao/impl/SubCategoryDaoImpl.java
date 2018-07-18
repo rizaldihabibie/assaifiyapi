@@ -1,9 +1,13 @@
 package com.assaifiy.api.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -101,10 +105,45 @@ public class SubCategoryDaoImpl implements SubCategoryDao{
 			query.select(root).where(builder.equal(root.get("subCategoryCode"), subCategoryCode));
 			Query<SubCategory> q = session.createQuery(query);
 			subCategory=q.getSingleResult();
+			if(subCategory.getSubCategoryCode() != null){
+				Hibernate.initialize(subCategory.getCategory());
+			}
 			return subCategory;
 		}catch(HibernateException e){
 			LOGGER.error(e.getMessage());
 			return subCategory;
+		}finally{
+			if(session != null){
+				LOGGER.warn("Closing session");
+				session.close();
+			}
+		}
+	}
+
+	@Override
+	public List<SubCategory> getAllData() {
+		LOGGER.debug("Retrieving category data");
+		List<SubCategory> listSubCategory = new ArrayList<>();
+		try{
+			LOGGER.warn("Opening Database Session");
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			LOGGER.warn("Retrieving Data");
+			CriteriaQuery<SubCategory> query = builder.createQuery(SubCategory.class);
+			Root<SubCategory> root = query.from(SubCategory.class);
+			query.select(root);
+			Query<SubCategory> q = session.createQuery(query);
+			listSubCategory =q.getResultList();
+			if(listSubCategory.size()>0){
+				for(SubCategory sub : listSubCategory){
+					Hibernate.initialize(sub.getCategory());
+				}
+			}
+			return listSubCategory;
+		}catch(HibernateException e){
+			LOGGER.error(e.getMessage());
+			return listSubCategory;
 		}finally{
 			if(session != null){
 				LOGGER.warn("Closing session");

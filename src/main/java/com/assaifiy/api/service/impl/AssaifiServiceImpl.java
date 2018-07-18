@@ -134,4 +134,10 @@ public class AssaifiServiceImpl implements AssaifiyService{
 		return subCategoryDao.findByCode(subCategoryCode);
 	}
 
+	@Override
+	public List<SubCategory> listSubCategory() {
+		// TODO Auto-generated method stub
+		return subCategoryDao.getAllData();
+	}
+
 }

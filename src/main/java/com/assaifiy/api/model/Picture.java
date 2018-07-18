@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="picture")
 public class Picture {
@@ -20,6 +22,7 @@ public class Picture {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="motor_id")
+	@JsonIgnore
 	private Bike bike;
 	
 	@Column(name="picture_name")

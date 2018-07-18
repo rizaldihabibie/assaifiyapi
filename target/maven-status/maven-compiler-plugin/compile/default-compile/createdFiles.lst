@@ -1,13 +1,13 @@
 com\assaifiy\api\AssaifiyApplication.class
 com\assaifiy\api\model\OthersInfo.class
 com\assaifiy\api\dao\impl\OthersInfoDaoImpl.class
+com\assaifiy\api\model\Response.class
 com\assaifiy\api\dao\impl\BikeDaoImpl.class
 com\assaifiy\api\model\Bike.class
 com\assaifiy\api\dao\impl\PictureDaoImpl.class
 com\assaifiy\api\model\SubCategory.class
 com\assaifiy\api\dao\CategoryDao.class
 com\assaifiy\api\model\Category.class
-com\assaifiy\api\model\CategoryResponse.class
 com\assaifiy\api\model\Picture.class
 com\assaifiy\api\dao\BikeDao.class
 com\assaifiy\api\dao\impl\SubCategoryDaoImpl.class
