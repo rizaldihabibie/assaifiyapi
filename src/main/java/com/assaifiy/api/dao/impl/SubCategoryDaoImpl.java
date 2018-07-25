@@ -53,7 +53,7 @@ public class SubCategoryDaoImpl implements SubCategoryDao{
 			LOGGER.warn("Opening Database Session");
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			LOGGER.warn("Saving new sub category : "+subCategory.getSubCategoryName());
+			LOGGER.warn("Updating new sub category : "+subCategory.getSubCategoryName());
 			session.update(subCategory);
 			session.getTransaction().commit();
 			return true;
@@ -132,7 +132,7 @@ public class SubCategoryDaoImpl implements SubCategoryDao{
 			LOGGER.warn("Retrieving Data");
 			CriteriaQuery<SubCategory> query = builder.createQuery(SubCategory.class);
 			Root<SubCategory> root = query.from(SubCategory.class);
-			query.select(root);
+			query.select(root).where(builder.equal(root.get("status"),"ACTIVE"),builder.equal(root.get("category").get("status"),"ACTIVE"));
 			Query<SubCategory> q = session.createQuery(query);
 			listSubCategory =q.getResultList();
 			if(listSubCategory.size()>0){

@@ -2,6 +2,8 @@ package com.assaifiy.api.service;
 
 import java.util.List;
 
+import org.springframework.security.access.annotation.Secured;
+
 import com.assaifiy.api.model.Bike;
 import com.assaifiy.api.model.Category;
 import com.assaifiy.api.model.OthersInfo;
@@ -21,7 +23,10 @@ public interface AssaifiyService {
 	 */
 	public boolean save(Category category);
 	public boolean update(Category category);
+	
+	@Secured ("ROLE_ADMIN")
 	public List<Category> listCategory();
+	
 	public Category findCategoryByCode(String categoryCode);
 	public List<SubCategory> listSubCategory(String categoryCode);
 	

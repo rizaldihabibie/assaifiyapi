@@ -125,7 +125,7 @@ public class AssaifiServiceImpl implements AssaifiyService{
 	@Override
 	public boolean update(SubCategory subCategory) {
 		// TODO Auto-generated method stub
-		return subCategoryDao.save(subCategory);
+		return subCategoryDao.update(subCategory);
 	}
 
 	@Override

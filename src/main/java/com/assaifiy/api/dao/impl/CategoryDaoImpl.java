@@ -82,7 +82,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			LOGGER.warn("Retrieving Data");
 			CriteriaQuery<Category> query = builder.createQuery(Category.class);
 			Root<Category> root = query.from(Category.class);
-			query.select(root);
+			query.select(root).where(builder.equal(root.get("status"),"ACTIVE"));
 			Query<Category> q = session.createQuery(query);
 			listCategory =q.getResultList();
 			return listCategory;

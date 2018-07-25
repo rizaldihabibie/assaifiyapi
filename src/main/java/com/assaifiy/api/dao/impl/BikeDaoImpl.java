@@ -239,7 +239,7 @@ public class BikeDaoImpl implements BikeDao {
 			}
 			return bike;
 		}catch(HibernateException e){
-			e.printStackTrace();
+//			e.printStackTrace();
 			LOGGER.error(e.getMessage());
 			return bike;
 		}finally{
