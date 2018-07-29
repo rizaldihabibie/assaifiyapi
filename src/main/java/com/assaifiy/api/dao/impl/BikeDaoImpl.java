@@ -211,7 +211,7 @@ public class BikeDaoImpl implements BikeDao {
 	}
 
 	@Override
-	public Bike findByCode(String bikeCode) {
+	public Bike findByCode(int bikeCode) {
 		LOGGER.debug("Retrieving bike data");
 		Bike bike = new Bike();
 		try{
@@ -222,7 +222,7 @@ public class BikeDaoImpl implements BikeDao {
 			LOGGER.warn("Retrieving Data");
 			CriteriaQuery<Bike> query = builder.createQuery(Bike.class);
 			Root<Bike> root = query.from(Bike.class);
-			query.select(root).where(builder.equal(root.get("bikeCode"), bikeCode));
+			query.select(root).where(builder.equal(root.get("id"), bikeCode));
 			Query<Bike> q = session.createQuery(query);
 			bike =q.getSingleResult();
 			Hibernate.initialize(bike.getSubCategory());

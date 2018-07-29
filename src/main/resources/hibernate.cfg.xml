@@ -13,5 +13,6 @@
 		<mapping class = "com.assaifiy.api.model.OthersInfo"/>
 		<mapping class = "com.assaifiy.api.model.Picture"/>
 		<mapping class = "com.assaifiy.api.model.UserModel"/>
+		<mapping class = "com.assaifiy.api.model.LogActivity"/>
 	</session-factory>
 </hibernate-configuration>

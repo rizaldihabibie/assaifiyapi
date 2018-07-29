@@ -10,6 +10,6 @@ public interface BikeDao {
 	public List<Bike> getAllData();
 	public List<Bike> findBySubCategory(String subCategoryCode);
 	public List<Bike> findByCategory(String categoryCode);
-	public Bike findByCode(String bikeCode);
+	public Bike findByCode(int bikeCode);
 
 }

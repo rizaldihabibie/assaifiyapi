@@ -166,13 +166,13 @@ public class AssaifiyApplicationTests {
 	
 	@Test
 	public void testFindByCode(){
-		bike = bikeDao.findByCode("hnd001");
+		bike = bikeDao.findByCode(1);
 		assertEquals(bike.getBrand(),"Huuonda");
 	}
 	
 	@Test
 	public void testUpdateBike(){
-		bike = bikeDao.findByCode("hnd001");
+		bike = bikeDao.findByCode(1);
 		bike.setBrand("Huuonda");
 		assertEquals(bikeDao.update(bike), true);
 	}
@@ -194,7 +194,7 @@ public class AssaifiyApplicationTests {
 	
 	@Test
 	public void testSaveOthersInfo(){
-		bike = bikeDao.findByCode("hnd001");
+		bike = bikeDao.findByCode(1);
 		othersInfo = new OthersInfo();
 		othersInfo.setInfoTitle("Body");
 		othersInfo.setInfo("Full Sticker Protector");
@@ -207,7 +207,7 @@ public class AssaifiyApplicationTests {
 	
 	@Test
 	public void testUpdateOthersInfo(){
-		bike = bikeDao.findByCode("Honda001");
+		bike = bikeDao.findByCode(1);
 		othersInfo = bike.getListOthersInfo().get(0);
 		othersInfo.setInfo("VELG R17 RACING ENKEI");
 		assertEquals(othersInfoDao.update(othersInfo),true);
@@ -216,13 +216,13 @@ public class AssaifiyApplicationTests {
 	
 	@Test
 	public void testGetAllDataOtherInfo(){
-		bike = bikeDao.findByCode("Honda001");
+		bike = bikeDao.findByCode(1);
 		assertEquals(othersInfoDao.getAllData(""+bike.getId()).size(),1);
 	}
 	
 	@Test
 	public void testSavePicture(){
-		bike = bikeDao.findByCode("Honda001");
+		bike = bikeDao.findByCode(1);
 		pic = new Picture();
 		pic.setCreatedBy("adm001");
 		pic.setCreatedDate(new Date());
@@ -234,14 +234,14 @@ public class AssaifiyApplicationTests {
 	
 	@Test
 	public void testUpdatePicture(){
-		bike = bikeDao.findByCode("Honda001");
+		bike = bikeDao.findByCode(1);
 		pic = bike.getListPicture().get(0);
 		pic.setPictureName("Edited Picture");
 		assertEquals(pictureDao.update(pic), true);
 	}
 	@Test
 	public void testGetAllPictureData(){
-		bike = bikeDao.findByCode("hnd004");
+		bike = bikeDao.findByCode(2);
 		assertEquals(pictureDao.getAllData(""+bike.getId()).size(),2);
 	}
 	

@@ -16,7 +16,7 @@ public interface AssaifiyService {
 	public List<Bike> listBike();
 	public List<Bike> findBySubCategory(String subCategoryCode);
 	public List<Bike> findByCategory(String categoryCode);
-	public Bike findBikeByCode(String bikeCode);
+	public Bike findBikeByCode(int bikeCode);
 	
 	/**
 	 * Category Service

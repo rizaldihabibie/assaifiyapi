@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="others_info")
@@ -22,7 +22,7 @@ public class OthersInfo {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="motor_id")
-	@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Bike bike;
 	
 	@Column(name="info_title")

@@ -57,7 +57,7 @@ public class AssaifiServiceImpl implements AssaifiyService{
 	}
 
 	@Override
-	public Bike findBikeByCode(String bikeCode) {
+	public Bike findBikeByCode(int bikeCode) {
 		return bikeDao.findByCode(bikeCode);
 	}
 

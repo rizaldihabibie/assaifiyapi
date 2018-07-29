@@ -86,11 +86,11 @@ public class Bike implements Serializable {
 	private SubCategory subCategory;
 	
 	@OneToMany(mappedBy="bike")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","bike"})
 	private List<OthersInfo> listOthersInfo;
 	
 	@OneToMany(mappedBy="bike")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","bike"})
 	private List<Picture> listPicture;
 
 	public int getId() {

@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.assaifiy.api.model.Bike;
 import com.assaifiy.api.model.Category;
+import com.assaifiy.api.model.OthersInfo;
 import com.assaifiy.api.model.Response;
 import com.assaifiy.api.model.SubCategory;
 import com.assaifiy.api.service.AssaifiyService;
@@ -107,18 +107,70 @@ public class AssaifiyApiController {
 		return new ResponseEntity<Response>(categoryResponse, HttpStatus.OK);
 	}
 	@RequestMapping(value="${api.version}/bikes", method = RequestMethod.POST)
-	public @ResponseBody Response bikes(@RequestHeader("authorization") String authString){
+	public ResponseEntity<Response> bikes(){
 		Response response = new Response();
-		if(authString != null){
-			response.setCode(""+HttpStatus.PROCESSING);
-			response.setStatus("Processing Request");
+		response.setCode(""+HttpStatus.PROCESSING);
+		response.setStatus("Processing Request");
+		response.setMessage("Request Processed");
+		response.setObj(assaifiyService.listBike());
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	@RequestMapping(value="${api.version}/bike-details", method = RequestMethod.POST)
+	public ResponseEntity<Response> bikeDetails(@RequestBody int bikeCode){
+		Response response = new Response();
+		response.setCode(""+HttpStatus.PROCESSING);
+		response.setStatus("Processing Request");
+		response.setMessage("Request Processed");
+		response.setObj(assaifiyService.findBikeByCode(bikeCode));
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	@RequestMapping(value="${api.version}/update-bike", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateBike(@RequestBody Bike bike){
+		Response response = new Response();
+		if(assaifiyService.update(bike)){
+			response.setCode(""+HttpStatus.CREATED);
+			response.setStatus("Success !");
 			response.setMessage("Request Processed");
-			response.setObj(assaifiyService.listBike());
+			response.setObj(null);
 		}else{
-			response.setCode(""+HttpStatus.BAD_REQUEST);
-			response.setStatus("Bad Request");
-			response.setMessage("Empty Header");
+			response.setCode(""+HttpStatus.NOT_ACCEPTABLE);
+			response.setStatus("Failed !");
+			response.setMessage("Failed to save data");
+			response.setObj(null);
 		}
-		return response;
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+	@RequestMapping(value="${api.version}/update-other-info", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateOtherInfo(@RequestBody OthersInfo otherInfo){
+		Response response = new Response();
+		if(assaifiyService.update(otherInfo)){
+			response.setCode(""+HttpStatus.CREATED);
+			response.setStatus("Success !");
+			response.setMessage("Request Processed");
+			response.setObj(null);
+		}else{
+			response.setCode(""+HttpStatus.NOT_ACCEPTABLE);
+			response.setStatus("Failed !");
+			response.setMessage("Failed to save data");
+			response.setObj(null);
+		}
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+	@RequestMapping(value="${api.version}/add-other-info", method = RequestMethod.POST)
+	public ResponseEntity<Response> addOtherInfo(@RequestBody OthersInfo otherInfo){
+		System.out.print(otherInfo.getBike().getId());
+		Response response = new Response();
+		if(assaifiyService.save(otherInfo)){
+			response.setCode(""+HttpStatus.CREATED);
+			response.setStatus("Success !");
+			response.setMessage("Request Processed");
+			response.setObj(null);
+		}else{
+			response.setCode(""+HttpStatus.NOT_ACCEPTABLE);
+			response.setStatus("Failed !");
+			response.setMessage("Failed to save data");
+			response.setObj(null);
+		}
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 }
