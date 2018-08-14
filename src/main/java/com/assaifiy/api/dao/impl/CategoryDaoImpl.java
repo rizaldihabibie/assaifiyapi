@@ -85,6 +85,11 @@ public class CategoryDaoImpl implements CategoryDao {
 			query.select(root).where(builder.equal(root.get("status"),"ACTIVE"));
 			Query<Category> q = session.createQuery(query);
 			listCategory =q.getResultList();
+			for(Category cat : listCategory){
+				for(SubCategory sub : cat.getListSubCategory()){
+					Hibernate.initialize(sub);
+				}
+			}
 			return listCategory;
 		}catch(HibernateException e){
 			e.printStackTrace();
@@ -112,6 +117,9 @@ public class CategoryDaoImpl implements CategoryDao {
 			query.select(root).where(builder.equal(root.get("categoryCode"), categoryCode));
 			Query<Category> q = session.createQuery(query);
 			category =q.getSingleResult();
+			for(SubCategory sub : category.getListSubCategory()){
+				Hibernate.initialize(sub);
+			}
 			return category;
 		}catch(HibernateException e){
 			LOGGER.error(e.getMessage());

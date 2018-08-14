@@ -18,7 +18,7 @@ public class RequestUserInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
 		try{
 		LogActivity log = new LogActivity();
-		log.setUsername(request.getRemoteUser());
+		log.setUsername(request.getRemoteAddr());
 		log.setLogIpAddress(request.getRemoteAddr());
 		log.setLogRequestedUrl(request.getRequestURI());
 		logActivityService.save(log);

@@ -19,6 +19,7 @@ import com.assaifiy.api.dao.BikeDao;
 import com.assaifiy.api.model.Bike;
 import com.assaifiy.api.model.OthersInfo;
 import com.assaifiy.api.model.Picture;
+import com.assaifiy.api.model.SubCategory;
 import com.assaifiy.api.util.HibernateUtil;
 
 @Repository("bikeDao")
@@ -96,6 +97,9 @@ public class BikeDaoImpl implements BikeDao {
 				for(Bike bike : listBike){
 					Hibernate.initialize(bike.getSubCategory());
 					Hibernate.initialize(bike.getSubCategory().getCategory());
+					for(SubCategory sub : bike.getSubCategory().getCategory().getListSubCategory()){
+						Hibernate.initialize(sub);
+					}
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -141,6 +145,9 @@ public class BikeDaoImpl implements BikeDao {
 				for(Bike bike : listBike){
 					Hibernate.initialize(bike.getSubCategory());
 					Hibernate.initialize(bike.getSubCategory().getCategory());
+					for(SubCategory sub : bike.getSubCategory().getCategory().getListSubCategory()){
+						Hibernate.initialize(sub);
+					}
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -185,6 +192,9 @@ public class BikeDaoImpl implements BikeDao {
 				for(Bike bike : listBike){
 					Hibernate.initialize(bike.getSubCategory());
 					Hibernate.initialize(bike.getSubCategory().getCategory());
+					for(SubCategory sub : bike.getSubCategory().getCategory().getListSubCategory()){
+						Hibernate.initialize(sub);
+					}
 					if(bike.getListOthersInfo().size()>0){
 						for(OthersInfo othersInfo : bike.getListOthersInfo()){
 							Hibernate.initialize(othersInfo);
@@ -228,6 +238,9 @@ public class BikeDaoImpl implements BikeDao {
 			Hibernate.initialize(bike.getSubCategory());
 			Hibernate.initialize(bike.getSubCategory().getCategory());
 			if(bike.getListOthersInfo().size()>0){
+				for(SubCategory sub : bike.getSubCategory().getCategory().getListSubCategory()){
+					Hibernate.initialize(sub);
+				}
 				for(OthersInfo othersInfo : bike.getListOthersInfo()){
 					Hibernate.initialize(othersInfo);
 				}
@@ -239,7 +252,6 @@ public class BikeDaoImpl implements BikeDao {
 			}
 			return bike;
 		}catch(HibernateException e){
-//			e.printStackTrace();
 			LOGGER.error(e.getMessage());
 			return bike;
 		}finally{

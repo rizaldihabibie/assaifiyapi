@@ -74,6 +74,9 @@ public class Bike implements Serializable {
 	@Column(name="status")
 	private String status;
 	
+	@Column(name="price")
+	private int price;
+	
 	@Column(name="created_date")
 	private Date createdDate;
 	
@@ -92,6 +95,15 @@ public class Bike implements Serializable {
 	@OneToMany(mappedBy="bike")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","bike"})
 	private List<Picture> listPicture;
+
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	public int getId() {
 		return id;

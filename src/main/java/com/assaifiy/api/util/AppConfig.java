@@ -12,9 +12,15 @@ public class AppConfig implements WebMvcConfigurer {
 	public RequestUserInterceptor RequestUserInterceptor() {
 	    return new RequestUserInterceptor();
 	}
+	@Bean
+	public RequestAdminInterceptor RequestAdminInterceptor() {
+	    return new RequestAdminInterceptor();
+	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry){
-		registry.addInterceptor(RequestUserInterceptor()).addPathPatterns("/assaifiy/v1/admin/*");
+		registry.addInterceptor(RequestAdminInterceptor()).addPathPatterns("/assaifiy/v1/admin/*");
+		registry.addInterceptor(RequestUserInterceptor()).addPathPatterns("/assaifiy/v1/*");
+
 	}
 }

@@ -107,6 +107,9 @@ public class SubCategoryDaoImpl implements SubCategoryDao{
 			subCategory=q.getSingleResult();
 			if(subCategory.getSubCategoryCode() != null){
 				Hibernate.initialize(subCategory.getCategory());
+				for(SubCategory sub : subCategory.getCategory().getListSubCategory()){
+					Hibernate.initialize(sub);
+				}
 			}
 			return subCategory;
 		}catch(HibernateException e){
@@ -138,6 +141,9 @@ public class SubCategoryDaoImpl implements SubCategoryDao{
 			if(listSubCategory.size()>0){
 				for(SubCategory sub : listSubCategory){
 					Hibernate.initialize(sub.getCategory());
+					for(SubCategory subs : sub.getCategory().getListSubCategory()){
+						Hibernate.initialize(subs);
+					}
 				}
 			}
 			return listSubCategory;

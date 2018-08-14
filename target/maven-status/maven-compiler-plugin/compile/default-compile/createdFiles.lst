@@ -26,9 +26,11 @@ com\assaifiy\api\dao\UserDao.class
 com\assaifiy\api\model\Category.class
 com\assaifiy\api\model\Picture.class
 com\assaifiy\api\model\LogActivity.class
+com\assaifiy\api\util\RequestAdminInterceptor.class
 com\assaifiy\api\dao\impl\UserDaoImpl.class
 com\assaifiy\api\model\UserModel.class
 com\assaifiy\api\controller\AssaifiyApiController.class
 com\assaifiy\api\service\impl\AssaifiServiceImpl.class
 com\assaifiy\api\service\AssaifiyService.class
+com\assaifiy\api\controller\AssaifiyUserApiController.class
 com\assaifiy\api\dao\impl\LogActivityDaoImpl.class

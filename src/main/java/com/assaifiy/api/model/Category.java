@@ -2,11 +2,17 @@ package com.assaifiy.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="category")
@@ -35,6 +41,22 @@ public class Category implements Serializable{
 	
 	@Column(name="created_by")
 	private String createdBy;
+	
+	@Column(name="url")
+	private String url;
+	
+	@OneToMany(mappedBy="category")
+	@Where(clause="status = 'ACTIVE'")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","category"})
+	private List<SubCategory> listSubCategory;
+	
+	public List<SubCategory> getListSubCategory() {
+		return listSubCategory;
+	}
+
+	public void setListSubCategory(List<SubCategory> listSubCategory) {
+		this.listSubCategory = listSubCategory;
+	}
 
 	public int getId() {
 		return id;
@@ -84,5 +106,12 @@ public class Category implements Serializable{
 		this.createdBy = createdBy;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
 }
